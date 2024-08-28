@@ -1,0 +1,43 @@
+<script type="importmap">
+    {
+      "imports": {
+        "@google/generative-ai": "https://esm.run/@google/generative-ai"
+      }
+    }
+  </script>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Generative AI</title>
+</head>
+<body>
+    <textarea id="output" rows="10" cols="30"></textarea>
+    <script type="module">
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+
+        // Fetch your API_KEY
+        const API_KEY = "AIzaSyAZ05DFP2IQe4WOHhKuiIedGCfRK88FrWw"; // Substitua por sua chave API
+
+        // Access your API key
+        const genAI = new GoogleGenerativeAI(API_KEY);
+
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        async function run() {
+            const prompt = "explique o que é uma maçã";
+
+            try {
+                const result = await model.generateContent(prompt);
+                const response = await result.response.text(); // Obtenha o texto da resposta
+                document.getElementById('output').value = response; // Exiba o texto na textarea
+            } catch (error) {
+                console.error("Erro ao gerar conteúdo:", error);
+                document.getElementById('output').value = "Erro ao gerar conteúdo";
+            }
+        }
+
+        run();
+    </script>
+</body>
+</html>
