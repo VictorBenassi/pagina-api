@@ -14,13 +14,21 @@
 <body>
 
     <img src="/fotos/magnus.png" alt="Logo MAGNUS" class="mini-logo">
+
     <div class="container conteiner-principal d-flex flex-column justify-content-center align-items-center">
 
-        <h1 class="cabecalho text-center mb-5">HUDSON STORYTELLING</h1>
+        <div class="cabecalho">
+            <h1 class="titulo text-center mb-5 fs-1 ">HUDSON <br> STORYTELLING</h1>
+        </div>
 
-        <h2>Gerador de Apresentação</h2>
 
-        <input type="text" class="form-control campo-detalhamento text-center mb-4" placeholder="Detalhe sua apresentação">
+        <div class="text-center mt-5 pesquisa">
+            <section>
+                <h2 class="mb-3 title" >Gerador de Apresentação</h2>
+            </section>
+            <textarea id="search" class="form-control campo-detalhamento text-center mx-auto" placeholder="Detalhe sua apresentação"></textarea>
+        </div>
+        
 
         <div class="d-flex justify-content-center mb-5">
             <div class="botao-selecao mx-2">
@@ -46,5 +54,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/script.js"></script>
 </body>
 </html>
