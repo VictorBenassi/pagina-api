@@ -35,6 +35,7 @@ section .title::before {
     width: 100%;
     height: 100px; /* Defina a altura que desejar */
     background-color: transparent; /* ou defina uma cor se necessário */
+    font-family: 'NanumMyeongjo';
 }
 
 .titulo {
