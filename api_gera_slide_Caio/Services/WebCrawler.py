@@ -14,7 +14,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-from pathlib import Path
 
 
 class WebCrawler:
@@ -25,8 +24,6 @@ class WebCrawler:
         self.userName = self.credentialDict['username']
         self.password = self.credentialDict['password']
         self.driver = Service(ChromeDriverManager().install())
-
-        download_folder = str(Path.home()/"Downloads")
         #initializing Options
         self.driverOptions = webdriver.ChromeOptions()
         self.driverOptions.add_argument('--headless')
@@ -36,18 +33,7 @@ class WebCrawler:
         self.driverOptions.add_argument('--no-sandbox')
         self.driverOptions.add_argument('--private')
         self.driverOptions.add_argument('—-disk-cache-size=0')
-
-        prefs = {
-            "download.default_directory": download_folder,
-            "download.prompt_for_download": False,
-            "download.directory_upgrade": True,
-            "safebrowsing.enabled": True
-        }
-        self.driverOptions.add_experimental_option('prefs', prefs)
-
-        # Initializing Browser
-
-
+        #Initializing Browser
         self.browser = webdriver.Chrome(service=self.driver, options=self.driverOptions)
 
     def waitWebObject(self, by_element, element_value):
@@ -79,44 +65,13 @@ class WebCrawler:
         self.browser.find_element(By.XPATH, "//button[contains(text(), 'Sign in')]").click()
         self.waitWebObject(By.XPATH, "//input[@placeholder='Describe what you'd like to make']")
 
-    def GenerateSlide(self, slideDescription: str = "faça uma apresentação sobre API"):
+    def GenerateSlide(self, slideDescription: str):
         self.browser.refresh()
         self.browser.get(self.initialUrl)
         self.waitWebObject(By.XPATH, "//input[@placeholder='Describe what you'd like to make']")
-        self.browser.find_element(By.XPATH,"//input[@placeholder='Describe what you'd like to make']").send_keys(slideDescription)
+        self.browser.find_element(By.XPATH,
+                                  "//input[@placeholder='Describe what you'd like to make']").send_keys(slideDescription)
         self.browser.find_element(By.XPATH, "//button[contains(text(), 'Generate outline')]").click()
-        prompt_input = self.browser.find_element(By.XPATH, "//input[@placeholder='Describe what you'd like to make']")
-        prompt_input.clear()
-        prompt_input.send_keys(slideDescription)
-        self.browser.find_element(By.XPATH, "//button[contains(text(), 'Gerar contorno')]").click()
-        time.sleep(2)
-        self.browser.find_element(By.XPATH, "//button[contains(text(), 'Continuar')]").click()
-        time.sleep(2)
-        self.browser.find_element(By.XPATH, "//button[contains(text(), 'Gerar')]").click()
-
-    def DownloadSlide(self):
-        # Clicar no botão de download usando classe
-        self.waitWebObject(By.CLASS_NAME, "chakra-button chakra-menu__menu-button css-qharjt")
-        self.browser.find_element(By.CLASS_NAME, "chakra-button chakra-menu__menu-button css-qharjt").click()
-
-        # Clicar no item do menu pelo ID
-        self.waitWebObject(By.ID, "menu-list-:rc5:-menuitem-:rcv:")
-        self.browser.find_element(By.ID, "menu-list-:rc5:-menuitem-:rcv:").click()
-
-        # Clicar na div de download
-        self.waitWebObject(By.CLASS_NAME, "chakra-stack css-r1wud1")
-        self.browser.find_element(By.CLASS_NAME, "chakra-stack css-r1wud1").click()
-
-        # Aguardar o download completar (ajuste o tempo conforme necessário)
-        time.sleep(10)  # Ajuste conforme o tempo necessário para o download
-
-        # Caminho da pasta de downloads
-        download_folder = "/caminho/para/downloads"
-        files = os.listdir(download_folder)
-        paths = [os.path.join(download_folder, basename) for basename in files]
-        latest_file = max(paths, key=os.path.getctime)  # Encontra o arquivo mais recente (baixado)
-
-        return latest_file
 
     def Begin(self, slideDescription: str):
         self.browser.get(self.initialUrl)
@@ -124,8 +79,6 @@ class WebCrawler:
         self.browser.refresh()
         self.Login()
         self.GenerateSlide(slideDescription)
-        self.DownloadSlide()
-        self.browser.quit()
 
 
 
