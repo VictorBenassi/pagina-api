@@ -6,7 +6,7 @@ from Services.WebCrawler import WebCrawler
 app = FastAPI()
 
 
-@app.get("/")
+@app.get("generate_slide")
 async def root():
     return {"message": "To check documentation go to /docs"}
 
