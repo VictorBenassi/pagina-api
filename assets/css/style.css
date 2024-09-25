@@ -29,6 +29,9 @@ section .title::before {
     width: 50px; 
     height: auto; 
 }
+.custom-navbar{
+    background-color: #7a00e6;
+}
 
 .cabecalho {
     position: relative;
