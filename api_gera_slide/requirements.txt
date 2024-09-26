@@ -1,4 +1,0 @@
-requests
-fastapi
-selenium
-webdriver-manager
